@@ -37,3 +37,34 @@ h1 {
   font-weight: 700;
   margin-block: 2rem;
 }
+
+button {
+  width: max-content;
+  padding: 1rem;
+  margin: 2rem auto 0;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  background-color: #c2fbd7;
+  letter-spacing: 2px;
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: green;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  transition: all 200ms ease;
+}
+
+button:is(:active, :focus):not(:disabled) {
+  outline: 1px solid green;
+}
+
+button:hover:not(:disabled) {
+  scale: 1.1;
+}
+
+button:disabled {
+  background-color: #ccc;
+  color: #777;
+  cursor: default;
+}
