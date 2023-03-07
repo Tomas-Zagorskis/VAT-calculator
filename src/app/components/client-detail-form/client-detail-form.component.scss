@@ -1,26 +1,41 @@
 .form {
   display: flex;
   flex-direction: column;
+  max-width: 1100px;
   gap: 1.5rem;
-  margin: 0 20%;
+  margin: 2rem auto;
   & > div:first-child > label:first-of-type {
     margin-right: 4rem;
   }
-  & > div:not(:first-child) {
+  & .controls-group,
+  & .control-group {
     display: flex;
     flex-direction: column;
+    gap: 0.5rem 1rem;
+    width: 100%;
   }
   label {
-    color: #333;
-    margin-bottom: 0.2rem;
+    color: #777;
     margin-left: 0.5rem;
   }
-  input:not([type="radio"]) {
-    padding: 0.5rem 1rem;
+  input:not([type="radio"]),
+  textarea {
+    padding: 1rem;
     border-radius: 0.5rem;
-    border: 1px solid #555;
+    border: none;
+    background-color: #eee;
+    font-size: 1.2rem;
   }
-  input:not([type="radio"]):focus {
-    outline: 1px solid blue;
+  input:not([type="radio"]):focus,
+  textarea:focus {
+    outline: none;
+    background-color: #ddd;
+  }
+}
+
+@media screen and (min-width: 760px) {
+  .form .controls-group {
+    flex-direction: row;
+    flex-basis: 100%;
   }
 }
