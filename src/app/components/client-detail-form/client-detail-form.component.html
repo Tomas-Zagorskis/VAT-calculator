@@ -1,35 +1,128 @@
-<form class="form">
+<form class="form" [formGroup]="clientForm" (ngSubmit)="onSubmit()">
   <div class="controls-group">
     <div>
-      <input type="radio" name="client" value="private" id="private" checked />
+      <input
+        type="radio"
+        name="isVATPayer"
+        value="private"
+        id="private"
+        formControlName="isVATPayer"
+        checked
+      />
       <label for="private">Private customer</label>
     </div>
     <div>
-      <input type="radio" name="client" value="business" id="business" />
+      <input
+        type="radio"
+        name="isVATPayer"
+        value="business"
+        formControlName="isVATPayer"
+        id="business"
+      />
       <label for="business">Business customer</label>
     </div>
   </div>
   <div class="controls-group">
     <div class="control-group">
-      <label for="fName">First Name</label><input type="text" />
+      <label for="fName">First Name</label>
+      <input type="text" formControlName="fName" />
+      <span
+        *ngIf="
+          !clientForm.get('fName')?.valid && clientForm.get('fName')?.touched
+        "
+        class="invalid-msg"
+      >
+        <span *ngIf="clientForm.get('fName')!.errors?.['required']"
+          >This field is required!</span
+        >
+      </span>
     </div>
     <div class="control-group">
-      <label for="lName">Last Name</label><input type="text" />
+      <label for="lName">Last Name</label>
+      <input type="text" formControlName="lName" />
+      <span
+        *ngIf="
+          !clientForm.get('lName')?.valid && clientForm.get('lName')?.touched
+        "
+        class="invalid-msg"
+      >
+        <span *ngIf="clientForm.get('lName')!.errors?.['required']"
+          >This field is required!</span
+        >
+      </span>
     </div>
   </div>
   <div class="control-group">
-    <label for="email">Email</label><input type="email" />
+    <label for="email">Email</label>
+    <input type="email" formControlName="email" />
+    <span
+      *ngIf="
+        !clientForm.get('email')?.valid && clientForm.get('email')?.touched
+      "
+      class="invalid-msg"
+    >
+      <span *ngIf="clientForm.get('email')!.errors?.['email']"
+        >Invalid email!</span
+      >
+      <span *ngIf="clientForm.get('email')!.errors?.['required']"
+        >This field is required!</span
+      >
+    </span>
+  </div>
+  <div
+    class="control-group"
+    *ngIf="clientForm.get('isVATPayer')?.value === 'business'"
+  >
+    <label for="company">Company</label>
+    <input type="company" formControlName="company" />
+    <span
+      *ngIf="
+        !clientForm.get('company')?.valid && clientForm.get('company')?.touched
+      "
+      class="invalid-msg"
+    >
+      <span *ngIf="clientForm.get('company')!.errors?.['required']"
+        >This field is required!</span
+      >
+    </span>
   </div>
   <div class="controls-group">
     <div class="control-group">
-      <label for="country">Country</label><input type="text" />
+      <label for="country">Country</label>
+      <select type="search" formControlName="country">
+        <option *ngFor="let country of countries" [value]="country">
+          {{ country }}
+        </option>
+      </select>
     </div>
     <div class="control-group">
-      <label for="city">City</label><input type="text" />
+      <label for="city">City</label>
+      <input type="text" formControlName="city" />
+      <span
+        *ngIf="
+          !clientForm.get('city')?.valid && clientForm.get('city')?.touched
+        "
+        class="invalid-msg"
+      >
+        <span *ngIf="clientForm.get('city')!.errors?.['required']"
+          >This field is required!</span
+        >
+      </span>
     </div>
   </div>
   <div class="control-group">
     <label for="address">Address</label
-    ><textarea type="text" rows="3"></textarea>
+    ><textarea type="text" rows="3" formControlName="address"></textarea>
+    <span
+      *ngIf="
+        !clientForm.get('address')?.valid && clientForm.get('address')?.touched
+      "
+      class="invalid-msg"
+    >
+      <span *ngIf="clientForm.get('address')!.errors?.['required']"
+        >This field is required!</span
+      >
+    </span>
   </div>
+  <button [disabled]="!clientForm.valid">Submit</button>
 </form>
