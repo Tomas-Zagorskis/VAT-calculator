@@ -9,9 +9,7 @@
     [countries]="countries"
   ></app-service-provider>
 
-  <fieldset>
-    <legend>Services</legend>
-    <app-product-list></app-product-list>
-  </fieldset>
+  <app-services formGroupName="serviceProvider"></app-services>
+
   <button [disabled]="!invoiceForm.valid">Submit</button>
 </form>

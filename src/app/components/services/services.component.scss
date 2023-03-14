@@ -1,0 +1,24 @@
+.service-list {
+  max-width: 1100px;
+  width: 100%;
+  margin: 2rem auto;
+  .service-item {
+    list-style: none;
+    margin-bottom: 2rem;
+  }
+  .btn-group {
+    flex-basis: 100px;
+    align-items: end;
+  }
+  .btn {
+    font-weight: 700;
+    font-size: 1.7rem;
+    background-color: transparent;
+    margin: 0;
+    padding: 0;
+  }
+  .btn-danger {
+    color: rgb(227, 30, 30);
+    margin: 1rem;
+  }
+}

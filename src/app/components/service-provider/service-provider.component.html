@@ -20,6 +20,14 @@
           {{ country }}
         </option>
       </select>
+      <span
+        *ngIf="!form.get('sCountry')?.valid && form.get('sCountry')?.touched"
+        class="invalid-msg"
+      >
+        <span *ngIf="form.get('sCountry')!.errors?.['required']"
+          >This field is required!</span
+        >
+      </span>
     </div>
     <div class="control-group">
       <label for="sCity">City</label>

@@ -10,7 +10,6 @@
     border-color: #ffffff;
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
     legend {
       font-size: 1.5rem;
       padding-inline: 1rem;
@@ -29,6 +28,7 @@
   & label {
     color: #777;
     margin-left: 0.5rem;
+    margin-top: 1.5rem;
   }
   & input:not([type="radio"]),
   & textarea,
@@ -47,7 +47,8 @@
     background-color: #ddd;
   }
   input.ng-invalid.ng-touched,
-  textarea.ng-invalid.ng-touched {
+  textarea.ng-invalid.ng-touched,
+  select.ng-invalid.ng-touched {
     border: 1px solid red;
   }
 }

@@ -1,0 +1,68 @@
+<fieldset [formGroup]="form">
+  <legend>Services</legend>
+  <ul class="service-list" formArrayName="services">
+    <li
+      class="service-item"
+      *ngFor="let serviceCtrl of controls; let i = index"
+      [formGroupName]="i"
+    >
+      <div class="control-group">
+        <label for="name">Service</label>
+        <input type="name" formControlName="name" />
+        <span
+          *ngIf="
+            !serviceCtrl.get('name')?.valid && serviceCtrl.get('name')?.touched
+          "
+          class="invalid-msg"
+        >
+          <span *ngIf="serviceCtrl.get('name')!.errors?.['required']"
+            >This field is required!</span
+          >
+        </span>
+      </div>
+      <div class="controls-group">
+        <div class="control-group">
+          <label for="price">Price</label>
+          <input type="number" formControlName="price" step="0.01" />
+          <span
+            *ngIf="
+              !serviceCtrl.get('price')?.valid &&
+              serviceCtrl.get('price')?.touched
+            "
+            class="invalid-msg"
+          >
+            <span *ngIf="serviceCtrl.get('price')!.errors?.['required']"
+              >This field is required!</span
+            >
+            <span *ngIf="serviceCtrl.get('price')!.errors?.['pattern']"
+              >Must be positive number and max 2 decimals (0.01)</span
+            >
+          </span>
+        </div>
+        <div class="control-group">
+          <label>Price included VAT</label>
+          <input type="number" disabled value="46.44" />
+        </div>
+        <div class="control-group btn-group">
+          <br />
+          <br />
+          <button
+            type="button"
+            (click)="onDeleteService(i)"
+            class="btn btn-danger"
+          >
+            X
+          </button>
+        </div>
+      </div>
+    </li>
+  </ul>
+  <button
+    type="button"
+    class="btn btn-success"
+    [disabled]="form.get('services')?.invalid"
+    (click)="onAddService()"
+  >
+    Add Service
+  </button>
+</fieldset>

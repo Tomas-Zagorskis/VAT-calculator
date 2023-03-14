@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs';
 
@@ -48,6 +48,15 @@ export class InvoiceFormComponent implements OnInit {
         sCountry: new FormControl(null, Validators.required),
         sCity: new FormControl(null, Validators.required),
         sAddress: new FormControl(null, Validators.required),
+        services: new FormArray([
+          new FormGroup({
+            name: new FormControl(null, Validators.required),
+            price: new FormControl(null, [
+              Validators.required,
+              Validators.pattern(/^[0-9]*([.][0-9]{0,2})?$/),
+            ]),
+          }),
+        ]),
       }),
     });
 
