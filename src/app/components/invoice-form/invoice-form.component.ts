@@ -1,14 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs';
 
 @Component({
-  selector: 'app-client-detail-form',
-  templateUrl: './client-detail-form.component.html',
-  styleUrls: ['./client-detail-form.component.scss'],
+  encapsulation: ViewEncapsulation.None,
+  selector: 'app-invoice-form',
+  templateUrl: './invoice-form.component.html',
+  styleUrls: ['./invoice-form.component.scss'],
 })
-export class ClientDetailFormComponent implements OnInit {
+export class InvoiceFormComponent implements OnInit {
   invoiceForm!: FormGroup;
   countries: any[] = [];
 

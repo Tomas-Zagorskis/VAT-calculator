@@ -1,0 +1,49 @@
+<fieldset [formGroup]="form">
+  <legend>Service provider</legend>
+  <div class="control-group">
+    <label for="name">Service Name</label>
+    <input type="name" formControlName="name" />
+    <span
+      *ngIf="!form.get('name')?.valid && form.get('name')?.touched"
+      class="invalid-msg"
+    >
+      <span *ngIf="form.get('name')!.errors?.['required']"
+        >This field is required!</span
+      >
+    </span>
+  </div>
+  <div class="controls-group">
+    <div class="control-group">
+      <label for="sCountry">Country</label>
+      <select type="search" formControlName="sCountry">
+        <option *ngFor="let country of countries" [value]="country">
+          {{ country }}
+        </option>
+      </select>
+    </div>
+    <div class="control-group">
+      <label for="sCity">City</label>
+      <input type="text" formControlName="sCity" />
+      <span
+        *ngIf="!form.get('sCity')?.valid && form.get('sCity')?.touched"
+        class="invalid-msg"
+      >
+        <span *ngIf="form.get('sCity')!.errors?.['required']"
+          >This field is required!</span
+        >
+      </span>
+    </div>
+  </div>
+  <div class="control-group">
+    <label for="sAddress">Address</label
+    ><textarea type="text" rows="3" formControlName="sAddress"></textarea>
+    <span
+      *ngIf="!form.get('sAddress')?.valid && form.get('sAddress')?.touched"
+      class="invalid-msg"
+    >
+      <span *ngIf="form.get('sAddress')!.errors?.['required']"
+        >This field is required!</span
+      >
+    </span>
+  </div>
+</fieldset>

@@ -1,0 +1,17 @@
+<form class="form" [formGroup]="invoiceForm" (ngSubmit)="onSubmit()">
+  <app-customer-details
+    formGroupName="customerDetails"
+    [countries]="countries"
+  ></app-customer-details>
+
+  <app-service-provider
+    formGroupName="serviceProvider"
+    [countries]="countries"
+  ></app-service-provider>
+
+  <fieldset>
+    <legend>Services</legend>
+    <app-product-list></app-product-list>
+  </fieldset>
+  <button [disabled]="!invoiceForm.valid">Submit</button>
+</form>

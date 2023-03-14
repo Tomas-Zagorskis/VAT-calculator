@@ -1,0 +1,111 @@
+<fieldset [formGroup]="form">
+  <legend>Customer</legend>
+  <div class="controls-group">
+    <div>
+      <input
+        type="radio"
+        name="VATPayer"
+        value="private"
+        id="private"
+        formControlName="VATPayer"
+        checked
+      />
+      <label for="private">Private customer</label>
+    </div>
+    <div>
+      <input
+        type="radio"
+        name="VATPayer"
+        value="business"
+        formControlName="VATPayer"
+        id="business"
+      />
+      <label for="business">Business customer</label>
+    </div>
+  </div>
+  <div class="controls-group">
+    <div class="control-group">
+      <label for="fName">First Name</label>
+      <input type="text" formControlName="fName" />
+      <span
+        *ngIf="!form.get('fName')?.valid && form.get('fName')?.touched"
+        class="invalid-msg"
+      >
+        <span *ngIf="form.get('fName')!.errors?.['required']"
+          >This field is required!</span
+        >
+      </span>
+    </div>
+    <div class="control-group">
+      <label for="lName">Last Name</label>
+      <input type="text" formControlName="lName" />
+      <span
+        *ngIf="!form.get('lName')?.valid && form.get('lName')?.touched"
+        class="invalid-msg"
+      >
+        <span *ngIf="form.get('lName')!.errors?.['required']"
+          >This field is required!</span
+        >
+      </span>
+    </div>
+  </div>
+  <div class="control-group">
+    <label for="email">Email</label>
+    <input type="email" formControlName="email" />
+    <span
+      *ngIf="!form.get('email')?.valid && form.get('email')?.touched"
+      class="invalid-msg"
+    >
+      <span *ngIf="form.get('email')!.errors?.['email']">Invalid email!</span>
+      <span *ngIf="form.get('email')!.errors?.['required']"
+        >This field is required!</span
+      >
+    </span>
+  </div>
+  <div class="control-group" *ngIf="form.get('VATPayer')?.value === 'business'">
+    <label for="company">Company</label>
+    <input type="company" formControlName="company" />
+    <span
+      *ngIf="!form.get('company')?.valid && form.get('company')?.touched"
+      class="invalid-msg"
+    >
+      <span *ngIf="form.get('company')!.errors?.['required']"
+        >This field is required!</span
+      >
+    </span>
+  </div>
+  <div class="controls-group">
+    <div class="control-group">
+      <label for="country">Country</label>
+      <select type="search" formControlName="country">
+        <option *ngFor="let country of countries" [value]="country">
+          {{ country }}
+        </option>
+      </select>
+    </div>
+    <div class="control-group">
+      <label for="city">City</label>
+      <input type="text" formControlName="city" />
+      <span
+        *ngIf="!form.get('city')?.valid && form.get('city')?.touched"
+        class="invalid-msg"
+      >
+        <span *ngIf="form.get('city')!.errors?.['required']"
+          >This field is required!</span
+        >
+      </span>
+    </div>
+  </div>
+  <div class="control-group">
+    <label for="address">Address</label
+    ><textarea type="text" rows="3" formControlName="address"></textarea>
+    <span
+      *ngIf="!form.get('address')?.valid && form.get('address')?.touched"
+      class="invalid-msg"
+    >
+      <span *ngIf="form.get('address')!.errors?.['required']"
+        >This field is required!</span
+      >
+    </span>
+  </div>
+</fieldset>
