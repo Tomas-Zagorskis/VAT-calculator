@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup, FormGroupDirective } from '@angular/forms';
+import { CountryRateDTO } from 'src/app/models/vatstackResponse.model';
 
 @Component({
   selector: 'app-service-provider',
@@ -8,7 +9,7 @@ import { FormGroup, FormGroupDirective } from '@angular/forms';
 })
 export class ServiceProviderComponent implements OnInit {
   @Input() formGroupName!: string;
-  @Input() countries!: string[];
+  @Input() countries!: CountryRateDTO[];
   form!: FormGroup;
 
   constructor(private rootFormGroup: FormGroupDirective) {}

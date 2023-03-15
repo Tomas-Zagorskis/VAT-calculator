@@ -26,8 +26,8 @@ export type CountryRate = {
 };
 
 export type CountryRateDTO = {
-  country_code: string;
-  country_name: string;
-  member_state: boolean;
-  standard_rate: number;
+  code: string;
+  name: string;
+  isEUMember: boolean;
+  rate: number;
 };

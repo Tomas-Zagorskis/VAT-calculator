@@ -16,8 +16,8 @@
     <div class="control-group">
       <label for="sCountry">Country</label>
       <select type="search" formControlName="sCountry">
-        <option *ngFor="let country of countries" [value]="country">
-          {{ country }}
+        <option *ngFor="let country of countries" [value]="country.code">
+          {{ country.name }}
         </option>
       </select>
       <span

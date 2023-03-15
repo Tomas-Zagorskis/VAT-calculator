@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup, FormGroupDirective } from '@angular/forms';
+import { Country } from 'src/app/models/country.model';
 
 @Component({
   selector: 'app-customer-details',
@@ -8,7 +9,7 @@ import { FormGroup, FormGroupDirective } from '@angular/forms';
 })
 export class CustomerDetailsComponent implements OnInit {
   @Input() formGroupName!: string;
-  @Input() countries!: string[];
+  @Input() countries!: Country[];
 
   form!: FormGroup;
 
