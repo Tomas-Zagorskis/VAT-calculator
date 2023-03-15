@@ -40,8 +40,12 @@
           </span>
         </div>
         <div class="control-group">
-          <label>Price included VAT</label>
-          <input type="number" disabled value="46.44" />
+          <label>Price included VAT ({{ vatRate }}%)</label>
+          <input
+            type="number"
+            disabled
+            [value]="onPriceChange(serviceCtrl.get('price')?.value)"
+          />
         </div>
         <div class="control-group btn-group">
           <br />

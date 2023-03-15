@@ -9,7 +9,10 @@
     [countries]="countryRates"
   ></app-service-provider>
 
-  <app-services formGroupName="serviceProvider"></app-services>
+  <app-services
+    formGroupName="serviceProvider"
+    [vatRate]="vatRate"
+  ></app-services>
 
   <button [disabled]="!invoiceForm.valid">Submit</button>
 </form>

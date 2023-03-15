@@ -3,7 +3,8 @@ import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { CountryRateDTO } from '../../models/vatstackResponse.model';
 import { HttpService } from 'src/app/services/http.service';
 import { Country } from 'src/app/models/country.model';
-import { Subscription } from 'rxjs';
+import { Subscription, switchMap } from 'rxjs';
+import { InvoiceForm } from 'src/app/models/form.model';
 
 @Component({
   encapsulation: ViewEncapsulation.None,
@@ -15,6 +16,7 @@ export class InvoiceFormComponent implements OnInit, OnDestroy {
   invoiceForm!: FormGroup;
   countries: Country[] = [];
   countryRates: CountryRateDTO[] = [];
+  vatRate: number = 0;
 
   countryListSub!: Subscription;
   rateListSub!: Subscription;
@@ -34,10 +36,33 @@ export class InvoiceFormComponent implements OnInit, OnDestroy {
 
     // Checks customer for type and adds/removes validation for company name input
     this.checkCustomerType();
+
+    this.onChanges();
   }
 
   onSubmit() {
     console.log(this.invoiceForm.value);
+  }
+
+  onChanges() {
+    this.invoiceForm.valueChanges.subscribe((form: InvoiceForm) => {
+      const customerEUMember = this.countryRates.find(
+        (countryData) =>
+          countryData.code === form.customerDetails.country &&
+          countryData.isEUMember
+      );
+      if (form.serviceProvider.isVATPayer && customerEUMember) {
+        if (form.customerDetails.country === form.serviceProvider.sCountry) {
+          this.vatRate = customerEUMember.rate;
+        } else if (form.customerDetails.VATPayer === 'private') {
+          this.vatRate = customerEUMember.rate;
+        } else {
+          this.vatRate = 0;
+        }
+      } else {
+        this.vatRate = 0;
+      }
+    });
   }
 
   ngOnDestroy() {
@@ -59,6 +84,7 @@ export class InvoiceFormComponent implements OnInit, OnDestroy {
       }),
       serviceProvider: new FormGroup({
         name: new FormControl(null, Validators.required),
+        isVATPayer: new FormControl(false),
         sCountry: new FormControl(null, Validators.required),
         sCity: new FormControl(null, Validators.required),
         sAddress: new FormControl(null, Validators.required),

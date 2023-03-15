@@ -1,5 +1,9 @@
 <fieldset [formGroup]="form">
   <legend>Service provider</legend>
+  <div style="margin: 0.7rem">
+    <input type="checkbox" formControlName="isVATPayer" id="sVatPayer" />
+    <label for="sVatPayer">Service VAT Payer</label>
+  </div>
   <div class="control-group">
     <label for="name">Service Name</label>
     <input type="name" formControlName="name" />

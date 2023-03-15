@@ -14,12 +14,16 @@ import {
 })
 export class ServicesComponent implements OnInit {
   @Input() formGroupName!: string;
+  @Input() vatRate!: number;
   form!: FormGroup;
 
   constructor(private rootFormGroup: FormGroupDirective) {}
 
   ngOnInit(): void {
     this.form = this.rootFormGroup.control.get(this.formGroupName) as FormGroup;
+    if (this.form.get('price')) {
+      this.form.get('price')?.valueChanges.subscribe;
+    }
   }
 
   onAddService() {
@@ -32,6 +36,15 @@ export class ServicesComponent implements OnInit {
         ]),
       })
     );
+  }
+
+  onPriceChange(price: number) {
+    if (!price) return null;
+    let calculatedPrice = price;
+    if (this.vatRate) {
+      calculatedPrice = (price * (this.vatRate + 100)) / 100;
+    }
+    return calculatedPrice.toFixed(2);
   }
 
   onDeleteService(index: number) {
