@@ -1,0 +1,82 @@
+header {
+  max-width: 1400px;
+  margin: auto;
+  h1 {
+    background-color: rgb(199, 199, 199);
+    padding: 1rem;
+    border-radius: 10px;
+    letter-spacing: 0.3rem;
+  }
+  h3 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    font-style: italic;
+  }
+}
+article {
+  max-width: 1400px;
+  margin: auto;
+}
+.invoice-top {
+  margin-block: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  address {
+    flex-basis: 350px;
+  }
+  th {
+    text-align: left;
+    padding-right: 2rem;
+    font-weight: 700;
+  }
+}
+
+th {
+  font-weight: 700;
+}
+
+p {
+  margin-top: 0.2rem;
+}
+
+.main-table {
+  font-size: 1.2rem;
+  width: 100%;
+  text-align: left;
+  border: 2px solid rgb(215, 215, 215);
+  thead {
+    border: 2px solid rgb(215, 215, 215);
+    th {
+      padding: 1rem;
+    }
+  }
+  .price {
+    text-align: right;
+    width: 150px;
+  }
+  td {
+    padding: 1rem;
+  }
+  tbody tr:nth-child(2n) {
+    background-color: rgb(216, 216, 216);
+  }
+}
+
+.total-table {
+  text-align: right;
+  margin-left: auto;
+  margin-block: 3rem;
+  td {
+    padding-left: 4rem;
+    padding-right: 0.5rem;
+    border-bottom: 2px solid rgb(216, 216, 216);
+  }
+  th,
+  td {
+    padding-block: 0.5rem;
+  }
+  .highlighted {
+    font-size: 1.5rem;
+  }
+}

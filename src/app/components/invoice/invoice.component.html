@@ -1,1 +1,65 @@
-<p>invoice works!</p>
+<header>
+  <h1>Invoice</h1>
+  <address>
+    <h3>{{ service.name }}</h3>
+    <p>
+      {{ service.sAddress }}<br />{{ service.sCity }},
+      {{ getCountryName(service.sCountry) }}
+    </p>
+  </address>
+</header>
+<article>
+  <div class="invoice-top">
+    <address>
+      <p>BILL TO</p>
+      <hr />
+      <p *ngIf="customer.company">{{ customer.company }}</p>
+      <p>{{ customer.fName }} {{ customer.lName }}</p>
+      <p>{{ getCountryName(customer.country) }}, {{ customer.city }}</p>
+      <p>{{ customer.address }}</p>
+    </address>
+    <table>
+      <tr>
+        <th>Invoice #</th>
+        <td>101138</td>
+      </tr>
+      <br />
+      <tr>
+        <th>Date</th>
+        <td>{{ today | date : "medium" }}</td>
+      </tr>
+    </table>
+  </div>
+  <table class="main-table">
+    <thead>
+      <tr>
+        <th>Service</th>
+        <th class="price">Price</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let serv of service.services">
+        <td>{{ serv.name }}</td>
+        <td class="price">{{ serv.price | number : "1.2" }}</td>
+      </tr>
+    </tbody>
+  </table>
+  <table class="total-table">
+    <tr>
+      <th>SUBTOTAL</th>
+      <td>{{ subtotal | number : "1.2" }} &euro;</td>
+    </tr>
+    <tr>
+      <th>TAX RATE</th>
+      <td>{{ tax }}%</td>
+    </tr>
+    <tr>
+      <th>TOTAL TAX</th>
+      <td>{{ taxTotal | number : "1.2" }} &euro;</td>
+    </tr>
+    <tr class="highlighted">
+      <th>Balance Due</th>
+      <td>{{ total | number : "1.2" }} &euro;</td>
+    </tr>
+  </table>
+</article>

@@ -17,6 +17,7 @@ export class InvoiceFormComponent implements OnInit, OnDestroy {
   countries: Country[] = [];
   countryRates: CountryRateDTO[] = [];
   vatRate: number = 0;
+  isSubmitted: boolean = false;
 
   countryListSub!: Subscription;
   rateListSub!: Subscription;
@@ -41,7 +42,7 @@ export class InvoiceFormComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-    console.log(this.invoiceForm.value);
+    this.isSubmitted = true;
   }
 
   onChanges() {

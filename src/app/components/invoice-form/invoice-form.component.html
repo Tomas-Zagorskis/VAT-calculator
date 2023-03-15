@@ -1,4 +1,10 @@
-<form class="form" [formGroup]="invoiceForm" (ngSubmit)="onSubmit()">
+<form
+  *ngIf="!isSubmitted"
+  class="form"
+  [formGroup]="invoiceForm"
+  (ngSubmit)="onSubmit()"
+>
+  <h1>Invoice Form</h1>
   <app-customer-details
     formGroupName="customerDetails"
     [countries]="countries"
@@ -16,3 +22,11 @@
 
   <button [disabled]="!invoiceForm.valid">Submit</button>
 </form>
+
+<app-invoice
+  *ngIf="isSubmitted"
+  [customer]="invoiceForm.get('customerDetails')?.value"
+  [service]="invoiceForm.get('serviceProvider')?.value"
+  [tax]="vatRate"
+  [countries]="countries"
+></app-invoice>
