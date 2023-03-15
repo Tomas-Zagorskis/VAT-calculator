@@ -9,7 +9,7 @@ import {
 @Injectable({
   providedIn: 'root',
 })
-export class InvoiceService {
+export class HttpService {
   constructor(private http: HttpClient) {}
 
   getCountryList() {

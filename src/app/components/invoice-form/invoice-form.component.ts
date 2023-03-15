@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { CountryRateDTO } from '../../models/vatstackResponse.model';
-import { InvoiceService } from 'src/app/services/invoice.service';
+import { HttpService } from 'src/app/services/http.service';
 import { Country } from 'src/app/models/country.model';
 import { Subscription } from 'rxjs';
 
@@ -19,14 +19,14 @@ export class InvoiceFormComponent implements OnInit, OnDestroy {
   countryListSub!: Subscription;
   rateListSub!: Subscription;
 
-  constructor(private invoiceService: InvoiceService) {}
+  constructor(private httpService: HttpService) {}
 
   ngOnInit() {
-    this.countryListSub = this.invoiceService
+    this.countryListSub = this.httpService
       .getCountryList()
       .subscribe((countries) => (this.countries = [...countries]));
 
-    this.rateListSub = this.invoiceService
+    this.rateListSub = this.httpService
       .getEURates()
       .subscribe((rates) => (this.countryRates = [...rates]));
 
