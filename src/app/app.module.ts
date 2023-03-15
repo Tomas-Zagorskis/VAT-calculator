@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { CustomerDetailsComponent } from './components/customer-details/customer-details.component';
@@ -9,6 +9,7 @@ import { InvoiceFormComponent } from './components/invoice-form/invoice-form.com
 import { InvoiceComponent } from './components/invoice/invoice.component';
 import { ServiceProviderComponent } from './components/service-provider/service-provider.component';
 import { ServicesComponent } from './components/services/services.component';
+import { AuthInterceptorService } from './auth-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,13 @@ import { ServicesComponent } from './components/services/services.component';
     ServicesComponent,
   ],
   imports: [BrowserModule, ReactiveFormsModule, HttpClientModule],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptorService,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

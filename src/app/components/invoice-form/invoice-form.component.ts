@@ -2,6 +2,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs';
+import { CountryRateDTO, VatstackResponse } from './vatstackResponse.model';
 
 @Component({
   encapsulation: ViewEncapsulation.None,
@@ -28,6 +29,22 @@ export class InvoiceFormComponent implements OnInit {
               this.countries.push(element.name);
             }
           }
+        })
+      )
+      .subscribe();
+    this.http
+      .get<VatstackResponse>('https://api.vatstack.com/v1/rates')
+      .pipe(
+        map((responseData) => {
+          const countryRates: CountryRateDTO[] = [];
+          responseData.rates.forEach((data) => {
+            countryRates.push({
+              country_code: data.country_code,
+              country_name: data.country_name,
+              member_state: data.member_state,
+              standard_rate: data.standard_rate,
+            });
+          });
         })
       )
       .subscribe();
