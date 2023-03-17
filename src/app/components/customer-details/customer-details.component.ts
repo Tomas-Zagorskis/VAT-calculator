@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup, FormGroupDirective } from '@angular/forms';
 import { Country } from 'src/app/models/country.model';
+import { CountryRateDTO } from 'src/app/models/vatstackResponse.model';
 
 @Component({
   selector: 'app-customer-details',
@@ -9,7 +10,7 @@ import { Country } from 'src/app/models/country.model';
 })
 export class CustomerDetailsComponent implements OnInit {
   @Input() formGroupName!: string;
-  @Input() countries!: Country[];
+  @Input() countries!: (Country | CountryRateDTO)[];
 
   form!: FormGroup;
 

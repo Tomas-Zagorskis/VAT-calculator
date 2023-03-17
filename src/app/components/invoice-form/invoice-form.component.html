@@ -7,7 +7,7 @@
   <h1>Invoice Form</h1>
   <app-customer-details
     formGroupName="customerDetails"
-    [countries]="countries"
+    [countries]="countries.length === 0 ? countryRates : countries"
   ></app-customer-details>
 
   <app-service-provider
