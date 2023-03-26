@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormGroupDirective } from '@angular/forms';
 
 import { ServiceProviderComponent } from './service-provider.component';
 
@@ -8,9 +9,9 @@ describe('ServiceProviderComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ServiceProviderComponent ]
-    })
-    .compileComponents();
+      declarations: [ServiceProviderComponent],
+      providers: [FormGroupDirective],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(ServiceProviderComponent);
     component = fixture.componentInstance;

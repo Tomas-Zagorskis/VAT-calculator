@@ -52,9 +52,6 @@ export class ServicesComponent implements OnInit {
   }
 
   get controls() {
-    // console.log(this.form.);
-
-    // a getter!
     return (<FormArray>this.form.get('services')).controls;
   }
 }
