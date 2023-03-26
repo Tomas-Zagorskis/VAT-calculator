@@ -3,7 +3,7 @@ import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { CountryRateDTO } from '../../models/vatstackResponse.model';
 import { HttpService } from 'src/app/services/http.service';
 import { Country } from 'src/app/models/country.model';
-import { Subscription, switchMap } from 'rxjs';
+import { debounceTime, Subscription, switchMap } from 'rxjs';
 import { InvoiceForm } from 'src/app/models/form.model';
 
 @Component({
@@ -46,24 +46,26 @@ export class InvoiceFormComponent implements OnInit, OnDestroy {
   }
 
   onChanges() {
-    this.invoiceForm.valueChanges.subscribe((form: InvoiceForm) => {
-      const customerEUMember = this.countryRates.find(
-        (countryData) =>
-          countryData.code === form.customerDetails.country &&
-          countryData.isEUMember
-      );
-      if (form.serviceProvider.isVATPayer && customerEUMember) {
-        if (form.customerDetails.country === form.serviceProvider.sCountry) {
-          this.vatRate = customerEUMember.rate;
-        } else if (form.customerDetails.VATPayer === 'private') {
-          this.vatRate = customerEUMember.rate;
+    this.invoiceForm.valueChanges
+      .pipe(debounceTime(1000))
+      .subscribe((form: InvoiceForm) => {
+        const customerEUMember = this.countryRates.find(
+          (countryData) =>
+            countryData.code === form.customerDetails.country &&
+            countryData.isEUMember
+        );
+        if (form.serviceProvider.isVATPayer && customerEUMember) {
+          if (form.customerDetails.country === form.serviceProvider.sCountry) {
+            this.vatRate = customerEUMember.rate;
+          } else if (form.customerDetails.VATPayer === 'private') {
+            this.vatRate = customerEUMember.rate;
+          } else {
+            this.vatRate = 0;
+          }
         } else {
           this.vatRate = 0;
         }
-      } else {
-        this.vatRate = 0;
-      }
-    });
+      });
   }
 
   ngOnDestroy() {
