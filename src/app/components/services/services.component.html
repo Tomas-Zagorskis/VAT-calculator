@@ -1,4 +1,4 @@
-<fieldset [formGroup]="form">
+<fieldset [formGroup]="serviceProvider">
   <legend>Services</legend>
   <ul class="service-list" formArrayName="services">
     <li
@@ -64,7 +64,7 @@
   <button
     type="button"
     class="btn btn-success"
-    [disabled]="form.get('services')?.invalid"
+    [disabled]="serviceProvider.get('services')?.invalid"
     (click)="onAddService()"
   >
     Add Service

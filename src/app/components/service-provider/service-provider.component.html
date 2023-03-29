@@ -1,4 +1,4 @@
-<fieldset [formGroup]="form">
+<fieldset [formGroup]="serviceProvider">
   <legend>Service provider</legend>
   <div style="margin: 0.7rem">
     <input type="checkbox" formControlName="isVATPayer" id="sVatPayer" />
@@ -8,10 +8,13 @@
     <label for="name">Service Name</label>
     <input type="name" formControlName="name" />
     <span
-      *ngIf="!form.get('name')?.valid && form.get('name')?.touched"
+      *ngIf="
+        !serviceProvider.get('name')?.valid &&
+        serviceProvider.get('name')?.touched
+      "
       class="invalid-msg"
     >
-      <span *ngIf="form.get('name')!.errors?.['required']"
+      <span *ngIf="serviceProvider.get('name')!.errors?.['required']"
         >This field is required!</span
       >
     </span>
@@ -25,10 +28,13 @@
         </option>
       </select>
       <span
-        *ngIf="!form.get('sCountry')?.valid && form.get('sCountry')?.touched"
+        *ngIf="
+          !serviceProvider.get('sCountry')?.valid &&
+          serviceProvider.get('sCountry')?.touched
+        "
         class="invalid-msg"
       >
-        <span *ngIf="form.get('sCountry')!.errors?.['required']"
+        <span *ngIf="serviceProvider.get('sCountry')!.errors?.['required']"
           >This field is required!</span
         >
       </span>
@@ -37,10 +43,13 @@
       <label for="sCity">City</label>
       <input type="text" formControlName="sCity" />
       <span
-        *ngIf="!form.get('sCity')?.valid && form.get('sCity')?.touched"
+        *ngIf="
+          !serviceProvider.get('sCity')?.valid &&
+          serviceProvider.get('sCity')?.touched
+        "
         class="invalid-msg"
       >
-        <span *ngIf="form.get('sCity')!.errors?.['required']"
+        <span *ngIf="serviceProvider.get('sCity')!.errors?.['required']"
           >This field is required!</span
         >
       </span>
@@ -50,12 +59,20 @@
     <label for="sAddress">Address</label
     ><textarea type="text" rows="3" formControlName="sAddress"></textarea>
     <span
-      *ngIf="!form.get('sAddress')?.valid && form.get('sAddress')?.touched"
+      *ngIf="
+        !serviceProvider.get('sAddress')?.valid &&
+        serviceProvider.get('sAddress')?.touched
+      "
       class="invalid-msg"
     >
-      <span *ngIf="form.get('sAddress')!.errors?.['required']"
+      <span *ngIf="serviceProvider.get('sAddress')!.errors?.['required']"
         >This field is required!</span
       >
     </span>
   </div>
 </fieldset>
+
+<app-services
+  [serviceProvider]="serviceProvider"
+  [vatRate]="vatRate"
+></app-services>

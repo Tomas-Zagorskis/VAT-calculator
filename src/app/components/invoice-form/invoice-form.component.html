@@ -6,19 +6,15 @@
 >
   <h1>Invoice Form</h1>
   <app-customer-details
-    formGroupName="customerDetails"
+    [invoiceForm]="invoiceForm"
     [countries]="countries.length === 0 ? countryRates : countries"
   ></app-customer-details>
 
   <app-service-provider
-    formGroupName="serviceProvider"
+    [invoiceForm]="invoiceForm"
     [countries]="countryRates"
-  ></app-service-provider>
-
-  <app-services
-    formGroupName="serviceProvider"
     [vatRate]="vatRate"
-  ></app-services>
+  ></app-service-provider>
 
   <button [disabled]="!invoiceForm.valid">Submit</button>
 </form>

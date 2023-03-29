@@ -3,7 +3,7 @@ import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { CountryRateDTO } from '../../models/vatstackResponse.model';
 import { HttpService } from 'src/app/services/http.service';
 import { Country } from 'src/app/models/country.model';
-import { debounceTime, Subscription, switchMap } from 'rxjs';
+import { debounceTime, Subscription } from 'rxjs';
 import { InvoiceForm } from 'src/app/models/form.model';
 
 @Component({
@@ -74,34 +74,7 @@ export class InvoiceFormComponent implements OnInit, OnDestroy {
   }
 
   private initForm() {
-    this.invoiceForm = new FormGroup({
-      customerDetails: new FormGroup({
-        VATPayer: new FormControl('private'),
-        fName: new FormControl(null, Validators.required),
-        lName: new FormControl(null, Validators.required),
-        company: new FormControl(null),
-        email: new FormControl(null, [Validators.required, Validators.email]),
-        country: new FormControl(null, Validators.required),
-        city: new FormControl(null, Validators.required),
-        address: new FormControl(null, Validators.required),
-      }),
-      serviceProvider: new FormGroup({
-        name: new FormControl(null, Validators.required),
-        isVATPayer: new FormControl(false),
-        sCountry: new FormControl(null, Validators.required),
-        sCity: new FormControl(null, Validators.required),
-        sAddress: new FormControl(null, Validators.required),
-        services: new FormArray([
-          new FormGroup({
-            name: new FormControl(null, Validators.required),
-            price: new FormControl(null, [
-              Validators.required,
-              Validators.pattern(/^[0-9]*([.][0-9]{0,2})?$/),
-            ]),
-          }),
-        ]),
-      }),
-    });
+    this.invoiceForm = new FormGroup({});
   }
 
   private checkCustomerType() {

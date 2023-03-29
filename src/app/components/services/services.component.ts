@@ -1,11 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import {
-  FormArray,
-  FormControl,
-  FormGroup,
-  FormGroupDirective,
-  Validators,
-} from '@angular/forms';
+import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-services',
@@ -13,24 +7,33 @@ import {
   styleUrls: ['./services.component.scss'],
 })
 export class ServicesComponent implements OnInit {
-  @Input() formGroupName!: string;
+  @Input() serviceProvider = new FormGroup<any>({});
   @Input() vatRate!: number;
-  form!: FormGroup;
 
-  constructor(private rootFormGroup: FormGroupDirective) {}
+  ngOnInit() {
+    this.createForm();
+  }
 
-  ngOnInit(): void {
-    this.form = this.rootFormGroup.control.get(this.formGroupName) as FormGroup;
-    if (this.form.get('price')) {
-      this.form.get('price')?.valueChanges.subscribe;
-    }
+  private createForm() {
+    this.serviceProvider.addControl(
+      'services',
+      new FormArray([
+        new FormGroup({
+          name: new FormControl('', Validators.required),
+          price: new FormControl(0, [
+            Validators.required,
+            Validators.pattern(/^[0-9]*([.][0-9]{0,2})?$/),
+          ]),
+        }),
+      ])
+    );
   }
 
   onAddService() {
-    (<FormArray>this.form.get('services')).push(
+    (<FormArray>this.serviceProvider.get('services')).push(
       new FormGroup({
-        name: new FormControl(null, Validators.required),
-        price: new FormControl(null, [
+        name: new FormControl('', Validators.required),
+        price: new FormControl(0, [
           Validators.required,
           Validators.pattern(/^[0-9]*([.][0-9]{0,2})?$/),
         ]),
@@ -48,10 +51,10 @@ export class ServicesComponent implements OnInit {
   }
 
   onDeleteService(index: number) {
-    (<FormArray>this.form.get('services')).removeAt(index);
+    (<FormArray>this.serviceProvider.get('services')).removeAt(index);
   }
 
   get controls() {
-    return (<FormArray>this.form.get('services')).controls;
+    return (<FormArray>this.serviceProvider.get('services')).controls;
   }
 }

@@ -1,5 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormGroup, FormGroupDirective } from '@angular/forms';
+import {
+  AbstractControl,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { CountryRateDTO } from 'src/app/models/vatstackResponse.model';
 
 @Component({
@@ -8,13 +13,36 @@ import { CountryRateDTO } from 'src/app/models/vatstackResponse.model';
   styleUrls: ['./service-provider.component.scss'],
 })
 export class ServiceProviderComponent implements OnInit {
-  @Input() formGroupName!: string;
+  serviceProvider = new FormGroup<{
+    [key: string]: AbstractControl<string, string>;
+  }>({});
+  @Input() invoiceForm = new FormGroup({});
   @Input() countries!: CountryRateDTO[];
-  form!: FormGroup;
+  @Input() vatRate!: number;
 
-  constructor(private rootFormGroup: FormGroupDirective) {}
+  ngOnInit() {
+    this.createForm();
+  }
 
-  ngOnInit(): void {
-    this.form = this.rootFormGroup.control.get(this.formGroupName) as FormGroup;
+  private createForm() {
+    this.invoiceForm.addControl('serviceProvider', this.serviceProvider);
+
+    this.serviceProvider.addControl(
+      'name',
+      new FormControl('', Validators.required)
+    );
+    this.serviceProvider.addControl('isVATPayer', new FormControl(false));
+    this.serviceProvider.addControl(
+      'sCountry',
+      new FormControl('', Validators.required)
+    );
+    this.serviceProvider.addControl(
+      'sCity',
+      new FormControl('', Validators.required)
+    );
+    this.serviceProvider.addControl(
+      'sAddress',
+      new FormControl('', Validators.required)
+    );
   }
 }
