@@ -1,10 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import {
-  AbstractControl,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CountryRateDTO } from 'src/app/models/vatstackResponse.model';
 
 @Component({
@@ -14,7 +9,7 @@ import { CountryRateDTO } from 'src/app/models/vatstackResponse.model';
 })
 export class ServiceProviderComponent implements OnInit {
   serviceProvider = new FormGroup<{
-    [key: string]: AbstractControl<string, string>;
+    [key: string]: FormControl<string | null | boolean>;
   }>({});
   @Input() invoiceForm = new FormGroup({});
   @Input() countries!: CountryRateDTO[];
