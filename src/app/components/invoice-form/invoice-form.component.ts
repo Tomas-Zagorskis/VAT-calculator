@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
-import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormGroup, Validators } from '@angular/forms';
 import { CountryRateDTO } from '../../models/vatstackResponse.model';
 import { HttpService } from 'src/app/services/http.service';
 import { Country } from 'src/app/models/country.model';
