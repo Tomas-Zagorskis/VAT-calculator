@@ -21,6 +21,8 @@ export class InvoiceFormComponent implements OnInit, OnDestroy {
 
   countryListSub!: Subscription;
   rateListSub!: Subscription;
+  vatRateSub!: Subscription;
+  clientTypeSub!: Subscription;
 
   constructor(private httpService: HttpService) {}
 
@@ -46,7 +48,7 @@ export class InvoiceFormComponent implements OnInit, OnDestroy {
   }
 
   onChanges() {
-    this.invoiceForm.valueChanges
+    this.vatRateSub = this.invoiceForm.valueChanges
       .pipe(debounceTime(1000))
       .subscribe((form: InvoiceForm) => {
         const customerEUMember = this.countryRates.find(
@@ -71,6 +73,8 @@ export class InvoiceFormComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     if (this.countryListSub) this.countryListSub.unsubscribe();
     if (this.rateListSub) this.rateListSub.unsubscribe();
+    if (this.vatRateSub) this.vatRateSub.unsubscribe();
+    if (this.clientTypeSub) this.clientTypeSub.unsubscribe();
   }
 
   private initForm() {
@@ -78,15 +82,19 @@ export class InvoiceFormComponent implements OnInit, OnDestroy {
   }
 
   private checkCustomerType() {
-    this.invoiceForm
-      .get('customerDetails.VATPayer')
-      ?.valueChanges.subscribe((val: string) => {
-        const company = this.invoiceForm.get('customerDetails.company');
-        val === 'business'
-          ? company?.addValidators(Validators.required)
-          : company?.clearValidators();
-        if (val === 'private') company?.setValue(null);
-        company?.updateValueAndValidity();
-      });
+    const vatPayerType = this.invoiceForm.get('customerDetails.VATPayer');
+
+    if (vatPayerType) {
+      this.clientTypeSub = vatPayerType.valueChanges.subscribe(
+        (val: string) => {
+          const company = this.invoiceForm.get('customerDetails.company');
+          val === 'business'
+            ? company?.addValidators(Validators.required)
+            : company?.clearValidators();
+          if (val === 'private') company?.setValue(null);
+          company?.updateValueAndValidity();
+        }
+      );
+    }
   }
 }
